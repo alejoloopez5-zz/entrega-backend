@@ -1,19 +1,28 @@
 package com.alejandrolopez.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
+@Table(name = "personas")
 public class Persona {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idPersona;
 	
+	@Size(min = 3, message = "Nombres debe tener minimo 3 caracteres")
+	@Column(name = "nombres", nullable = false, length = 70)
 	private String nombres;
-	private String Apellidos;
+	
+	@Size(min = 3, message = "Apellidos debe tener minimo 3 caracteres")
+	@Column(name = "apellidos", nullable = false, length = 70)
+	private String apellidos;
 	
 	public Integer getIdPersona() {
 		return idPersona;
@@ -28,10 +37,10 @@ public class Persona {
 		this.nombres = nombres;
 	}
 	public String getApellidos() {
-		return Apellidos;
+		return apellidos;
 	}
 	public void setApellidos(String apellidos) {
-		Apellidos = apellidos;
+		this.apellidos = apellidos;
 	}
 
 }
