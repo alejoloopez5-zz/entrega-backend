@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,27 +27,32 @@ public class PersonaController {
 	private IPersonaService service;
 	
 	@GetMapping
-	public List<Persona> listar(){
-		return service.listar();
+	public ResponseEntity<List<Persona>> listar(){
+		List<Persona> lista = service.listar();
+		return new ResponseEntity<List<Persona>>(lista, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public Persona leerPorId(@PathVariable("id") Integer id) {
-		return service.leerPorId(id);
+	public ResponseEntity<Persona> leerPorId(@PathVariable("id") Integer id) {
+		Persona obj =  service.leerPorId(id);
+		return new ResponseEntity<Persona>(obj, HttpStatus.OK); 
 	}
 	
 	@PostMapping
-	public void registrar(@Valid @RequestBody Persona obj) {
+	public ResponseEntity<Object> registrar(@Valid @RequestBody Persona obj) {
 		service.registrar(obj);
+		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping
-	public void modificar(@Valid @RequestBody Persona obj) {
+	public ResponseEntity<Object> modificar(@Valid @RequestBody Persona obj) {
 		service.modificar(obj);
+		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void eliminar(@PathVariable("id") Integer id) {
+	public ResponseEntity<Object> eliminar(@PathVariable("id") Integer id) {
 		service.eliminar(id);
+		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 }
