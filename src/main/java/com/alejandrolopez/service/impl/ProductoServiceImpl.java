@@ -3,11 +3,13 @@ package com.alejandrolopez.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.alejandrolopez.model.Producto;
 import com.alejandrolopez.repo.IProductoRepo;
 import com.alejandrolopez.service.IProductoService;
 
+@Service
 public class ProductoServiceImpl implements IProductoService{
 
 	@Autowired
